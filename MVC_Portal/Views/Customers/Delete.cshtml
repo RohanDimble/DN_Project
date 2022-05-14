@@ -1,0 +1,90 @@
+﻿@model MVC_Portal.Models.Customer
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h3>Delete Customer</h3>
+
+<h5>Are you sure you want to delete this?</h5>
+<div class="mt-2">
+    <hr />
+    <div class="row">
+        <div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-xs-12 mb-2">
+            <label>@Html.DisplayNameFor(model => model.Name)</label>
+            <div>
+                @Html.DisplayFor(model => model.Name)
+            </div>
+        </div>
+         <div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-xs-12 mb-2">
+             <label>@Html.DisplayNameFor(model => model.City)</label>
+             <div>
+                 @Html.DisplayFor(model => model.City)
+             </div>
+        </div>
+         <div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-xs-12 mb-2">
+             <label> @Html.DisplayNameFor(model => model.WorkingArea)</label>
+             <div>
+                 @Html.DisplayFor(model => model.WorkingArea)
+             </div>
+        </div>
+         <div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-xs-12 mb-2">
+             <label> @Html.DisplayNameFor(model => model.Country)</label>
+             <div>
+                 @Html.DisplayFor(model => model.Country)
+             </div>
+        </div>
+         <div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-xs-12 mb-2">
+             <label>  @Html.DisplayNameFor(model => model.Grade)</label>
+             <div>
+                 @Html.DisplayFor(model => model.Grade)
+             </div>
+        </div>
+         <div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-xs-12 mb-2">
+             <label> @Html.DisplayNameFor(model => model.OpeningAmount)</label>
+             <div>
+                 @Html.DisplayFor(model => model.OpeningAmount)
+             </div>
+        </div>
+         <div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-xs-12 mb-2">
+             <label>  @Html.DisplayNameFor(model => model.ReceivedAmount)</label>
+             <div>
+                 @Html.DisplayFor(model => model.ReceivedAmount)
+             </div>
+        </div>
+         <div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-xs-12 mb-2">
+             <label> @Html.DisplayNameFor(model => model.PaymentAmount)</label>
+             <div>
+                 @Html.DisplayFor(model => model.PaymentAmount)
+             </div>
+        </div>
+         <div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-xs-12 mb-2">
+             <label> @Html.DisplayNameFor(model => model.OutstandingAmount)</label>
+             <div>
+                 @Html.DisplayFor(model => model.OutstandingAmount)
+             </div>
+        </div>
+         <div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-xs-12 mb-2">
+             <label>  @Html.DisplayNameFor(model => model.PhoneNumber)</label>
+             <div>
+                 @Html.DisplayFor(model => model.PhoneNumber)
+             </div>
+        </div>
+         <div class="col-xxl-4 col-xl-4 col-md-4 col-sm-12 col-xs-12 mb-2">
+             <label> @Html.DisplayNameFor(model => model.AgentCode)</label>
+             <div>
+                 @Html.DisplayFor(model => model.AgentCode)
+             </div>
+        </div>
+
+    </div>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

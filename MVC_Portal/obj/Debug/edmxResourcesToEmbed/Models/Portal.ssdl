@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="AssignmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Agent">
+    <Key>
+      <PropertyRef Name="AgentCode" />
+    </Key>
+    <Property Name="AgentCode" Type="nvarchar" MaxLength="6" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="40" />
+    <Property Name="WorkingArea" Type="nvarchar" MaxLength="35" />
+    <Property Name="Commission" Type="numeric" Precision="10" Scale="2" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="15" />
+    <Property Name="Country" Type="nvarchar" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="CustomerCode" />
+    </Key>
+    <Property Name="CustomerCode" Type="nvarchar" MaxLength="6" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="City" Type="nvarchar" MaxLength="35" />
+    <Property Name="WorkingArea" Type="nvarchar" MaxLength="35" Nullable="false" />
+    <Property Name="Country" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Grade" Type="int" />
+    <Property Name="OpeningAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+    <Property Name="ReceivedAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+    <Property Name="PaymentAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+    <Property Name="OutstandingAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="17" Nullable="false" />
+    <Property Name="AgentCode" Type="nvarchar" MaxLength="6" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Assignment.dbo.CustomerTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="CustomerTable">
+    <Key>
+      <PropertyRef Name="CustomerCode" />
+      <PropertyRef Name="Name" />
+      <PropertyRef Name="WorkingArea" />
+      <PropertyRef Name="Country" />
+      <PropertyRef Name="OpeningAmount" />
+      <PropertyRef Name="ReceivedAmount" />
+      <PropertyRef Name="PaymentAmount" />
+      <PropertyRef Name="OutstandingAmount" />
+      <PropertyRef Name="PhoneNumber" />
+      <PropertyRef Name="AgentCode" />
+    </Key>
+    <Property Name="CustomerCode" Type="nvarchar" MaxLength="6" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="City" Type="nvarchar" MaxLength="35" />
+    <Property Name="WorkingArea" Type="nvarchar" MaxLength="35" Nullable="false" />
+    <Property Name="Country" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Grade" Type="int" />
+    <Property Name="OpeningAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+    <Property Name="ReceivedAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+    <Property Name="PaymentAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+    <Property Name="OutstandingAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+    <Property Name="PhoneNumber" Type="nvarchar" MaxLength="17" Nullable="false" />
+    <Property Name="AgentCode" Type="nvarchar" MaxLength="6" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderNumber" />
+    </Key>
+    <Property Name="OrderNumber" Type="numeric" Precision="6" Scale="0" Nullable="false" />
+    <Property Name="TotalAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+    <Property Name="AdvanceAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="CustomerCode" Type="nvarchar" MaxLength="6" Nullable="false" />
+    <Property Name="AgentCode" Type="nvarchar" MaxLength="6" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Assignment.dbo.Student' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Name" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="256" />
+    <Property Name="Qualification" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Function Name="usp_GetAgentDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_GetCustomerDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_GetOrderCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_GetOrderDetailsByAgentId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ACode" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="usp_GetOrderDetailsOnANameCName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="AssignmentModelStoreContainer">
+    <EntitySet Name="Agent" EntityType="Self.Agent" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CustomerTable" EntityType="Self.CustomerTable" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [CustomerTable].[CustomerCode] AS [CustomerCode], 
+    [CustomerTable].[Name] AS [Name], 
+    [CustomerTable].[City] AS [City], 
+    [CustomerTable].[WorkingArea] AS [WorkingArea], 
+    [CustomerTable].[Country] AS [Country], 
+    [CustomerTable].[Grade] AS [Grade], 
+    [CustomerTable].[OpeningAmount] AS [OpeningAmount], 
+    [CustomerTable].[ReceivedAmount] AS [ReceivedAmount], 
+    [CustomerTable].[PaymentAmount] AS [PaymentAmount], 
+    [CustomerTable].[OutstandingAmount] AS [OutstandingAmount], 
+    [CustomerTable].[PhoneNumber] AS [PhoneNumber], 
+    [CustomerTable].[AgentCode] AS [AgentCode]
+    FROM [dbo].[CustomerTable] AS [CustomerTable]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Student" EntityType="Self.Student" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Student].[Id] AS [Id], 
+    [Student].[Name] AS [Name], 
+    [Student].[Address] AS [Address], 
+    [Student].[Qualification] AS [Qualification]
+    FROM [dbo].[Student] AS [Student]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,445 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="AssignmentModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Agent">
+          <Key>
+            <PropertyRef Name="AgentCode" />
+          </Key>
+          <Property Name="AgentCode" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="40" />
+          <Property Name="WorkingArea" Type="nvarchar" MaxLength="35" />
+          <Property Name="Commission" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="15" />
+          <Property Name="Country" Type="nvarchar" MaxLength="25" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerCode" />
+          </Key>
+          <Property Name="CustomerCode" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="35" />
+          <Property Name="WorkingArea" Type="nvarchar" MaxLength="35" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Grade" Type="int" />
+          <Property Name="OpeningAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="ReceivedAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="PaymentAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="OutstandingAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="17" Nullable="false" />
+          <Property Name="AgentCode" Type="nvarchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Assignment.dbo.CustomerTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="CustomerTable">
+          <Key>
+            <PropertyRef Name="CustomerCode" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="WorkingArea" />
+            <PropertyRef Name="Country" />
+            <PropertyRef Name="OpeningAmount" />
+            <PropertyRef Name="ReceivedAmount" />
+            <PropertyRef Name="PaymentAmount" />
+            <PropertyRef Name="OutstandingAmount" />
+            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="AgentCode" />
+          </Key>
+          <Property Name="CustomerCode" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="40" Nullable="false" />
+          <Property Name="City" Type="nvarchar" MaxLength="35" />
+          <Property Name="WorkingArea" Type="nvarchar" MaxLength="35" Nullable="false" />
+          <Property Name="Country" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Grade" Type="int" />
+          <Property Name="OpeningAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="ReceivedAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="PaymentAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="OutstandingAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="17" Nullable="false" />
+          <Property Name="AgentCode" Type="nvarchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderNumber" />
+          </Key>
+          <Property Name="OrderNumber" Type="numeric" Precision="6" Scale="0" Nullable="false" />
+          <Property Name="TotalAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="AdvanceAmount" Type="numeric" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="CustomerCode" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="AgentCode" Type="nvarchar" MaxLength="6" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Assignment.dbo.Student' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="256" />
+          <Property Name="Qualification" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Function Name="usp_GetAgentDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_GetCustomerDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_GetOrderCount" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_GetOrderDetailsByAgentId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ACode" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_GetOrderDetailsOnANameCName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="AssignmentModelStoreContainer">
+          <EntitySet Name="Agent" EntityType="Self.Agent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerTable" EntityType="Self.CustomerTable" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [CustomerTable].[CustomerCode] AS [CustomerCode], 
+    [CustomerTable].[Name] AS [Name], 
+    [CustomerTable].[City] AS [City], 
+    [CustomerTable].[WorkingArea] AS [WorkingArea], 
+    [CustomerTable].[Country] AS [Country], 
+    [CustomerTable].[Grade] AS [Grade], 
+    [CustomerTable].[OpeningAmount] AS [OpeningAmount], 
+    [CustomerTable].[ReceivedAmount] AS [ReceivedAmount], 
+    [CustomerTable].[PaymentAmount] AS [PaymentAmount], 
+    [CustomerTable].[OutstandingAmount] AS [OutstandingAmount], 
+    [CustomerTable].[PhoneNumber] AS [PhoneNumber], 
+    [CustomerTable].[AgentCode] AS [AgentCode]
+    FROM [dbo].[CustomerTable] AS [CustomerTable]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Student" EntityType="Self.Student" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Student].[Id] AS [Id], 
+    [Student].[Name] AS [Name], 
+    [Student].[Address] AS [Address], 
+    [Student].[Qualification] AS [Qualification]
+    FROM [dbo].[Student] AS [Student]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AssignmentModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Agent">
+          <Key>
+            <PropertyRef Name="AgentCode" />
+          </Key>
+          <Property Name="AgentCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+          <Property Name="WorkingArea" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Name="Commission" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="Country" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="CustomerCode" />
+          </Key>
+          <Property Name="CustomerCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Name="WorkingArea" Type="String" MaxLength="35" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Grade" Type="Int32" />
+          <Property Name="OpeningAmount" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="ReceivedAmount" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="PaymentAmount" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="OutstandingAmount" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="17" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgentCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderNumber" />
+          </Key>
+          <Property Name="OrderNumber" Type="Decimal" Precision="6" Scale="0" Nullable="false" />
+          <Property Name="TotalAmount" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="AdvanceAmount" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="CustomerCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgentCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomerTable">
+          <Key>
+            <PropertyRef Name="CustomerCode" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="WorkingArea" />
+            <PropertyRef Name="Country" />
+            <PropertyRef Name="OpeningAmount" />
+            <PropertyRef Name="ReceivedAmount" />
+            <PropertyRef Name="PaymentAmount" />
+            <PropertyRef Name="OutstandingAmount" />
+            <PropertyRef Name="PhoneNumber" />
+            <PropertyRef Name="AgentCode" />
+          </Key>
+          <Property Name="CustomerCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="City" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
+          <Property Name="WorkingArea" Type="String" MaxLength="35" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Country" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Grade" Type="Int32" />
+          <Property Name="OpeningAmount" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="ReceivedAmount" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="PaymentAmount" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="OutstandingAmount" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="17" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AgentCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Name" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Qualification" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="AssignmentEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Agents" EntityType="Self.Agent" />
+          <EntitySet Name="Customers" EntityType="Self.Customer" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="CustomerTables" EntityType="Self.CustomerTable" />
+          <EntitySet Name="Students" EntityType="Self.Student" />
+          <FunctionImport Name="usp_GetAgentDetails" ReturnType="Collection(AssignmentModel.usp_GetAgentDetails_Result)" />
+          <FunctionImport Name="usp_GetCustomerDetails" ReturnType="Collection(AssignmentModel.usp_GetCustomerDetails_Result)" />
+          <FunctionImport Name="usp_GetOrderCount" ReturnType="Collection(AssignmentModel.usp_GetOrderCount_Result)" />
+          <FunctionImport Name="usp_GetOrderDetailsByAgentId" ReturnType="Collection(AssignmentModel.usp_GetOrderDetailsByAgentId_Result)">
+            <Parameter Name="ACode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetOrderDetailsOnANameCName" ReturnType="Collection(AssignmentModel.usp_GetOrderDetailsOnANameCName_Result)" />
+        </EntityContainer>
+        <ComplexType Name="usp_GetAgentDetails_Result">
+          <Property Type="Decimal" Name="OrderNumber" Nullable="false" Precision="6" Scale="0" />
+          <Property Type="DateTime" Name="Order_Date" Nullable="false" />
+          <Property Type="String" Name="Agent_Name" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="Contact_Number" Nullable="true" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="usp_GetCustomerDetails_Result">
+          <Property Type="String" Name="Agent_Name" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="CustomerCode" Nullable="false" MaxLength="6" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="City" Nullable="true" MaxLength="35" />
+          <Property Type="String" Name="WorkingArea" Nullable="false" MaxLength="35" />
+          <Property Type="String" Name="Country" Nullable="false" MaxLength="20" />
+          <Property Type="Int32" Name="Grade" Nullable="true" />
+          <Property Type="Decimal" Name="OpeningAmount" Nullable="false" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="ReceivedAmount" Nullable="false" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="PaymentAmount" Nullable="false" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="OutstandingAmount" Nullable="false" Precision="12" Scale="2" />
+          <Property Type="String" Name="PhoneNumber" Nullable="false" MaxLength="17" />
+          <Property Type="String" Name="AgentCode" Nullable="false" MaxLength="6" />
+        </ComplexType>
+        <ComplexType Name="usp_GetOrderCount_Result">
+          <Property Type="String" Name="Agent_Name" Nullable="true" MaxLength="40" />
+          <Property Type="Int32" Name="Order_Count" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_GetOrderDetailsByAgentId_Result">
+          <Property Type="Decimal" Name="OrderNumber" Nullable="false" Precision="6" Scale="0" />
+          <Property Type="Decimal" Name="TotalAmount" Nullable="false" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="AdvanceAmount" Nullable="false" Precision="12" Scale="2" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="String" Name="CustomerCode" Nullable="false" MaxLength="6" />
+          <Property Type="String" Name="AgentCode" Nullable="false" MaxLength="6" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="AgentCode1" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="WorkingArea" Nullable="true" MaxLength="35" />
+          <Property Type="Decimal" Name="Commission" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" MaxLength="15" />
+          <Property Type="String" Name="Country" Nullable="true" MaxLength="25" />
+          <Property Type="String" Name="Agent_Name" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="Contact_Number" Nullable="true" MaxLength="15" />
+        </ComplexType>
+        <ComplexType Name="usp_GetOrderDetailsOnANameCName_Result">
+          <Property Type="Decimal" Name="OrderNumber" Nullable="false" Precision="6" Scale="0" />
+          <Property Type="Decimal" Name="TotalAmount" Nullable="false" Precision="12" Scale="2" />
+          <Property Type="Decimal" Name="AdvanceAmount" Nullable="false" Precision="12" Scale="2" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <Property Type="String" Name="CustomerCode" Nullable="false" MaxLength="6" />
+          <Property Type="String" Name="AgentCode" Nullable="false" MaxLength="6" />
+          <Property Type="String" Name="Description" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Agent_Name" Nullable="true" MaxLength="40" />
+          <Property Type="String" Name="Customer_Name" Nullable="false" MaxLength="40" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="AssignmentModelStoreContainer" CdmEntityContainer="AssignmentEntities">
+          <EntitySetMapping Name="Agents">
+            <EntityTypeMapping TypeName="AssignmentModel.Agent">
+              <MappingFragment StoreEntitySet="Agent">
+                <ScalarProperty Name="AgentCode" ColumnName="AgentCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="WorkingArea" ColumnName="WorkingArea" />
+                <ScalarProperty Name="Commission" ColumnName="Commission" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="AssignmentModel.Customer">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="WorkingArea" ColumnName="WorkingArea" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="OpeningAmount" ColumnName="OpeningAmount" />
+                <ScalarProperty Name="ReceivedAmount" ColumnName="ReceivedAmount" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="OutstandingAmount" ColumnName="OutstandingAmount" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="AgentCode" ColumnName="AgentCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="AssignmentModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="AdvanceAmount" ColumnName="AdvanceAmount" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="AgentCode" ColumnName="AgentCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerTables">
+            <EntityTypeMapping TypeName="AssignmentModel.CustomerTable">
+              <MappingFragment StoreEntitySet="CustomerTable">
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="WorkingArea" ColumnName="WorkingArea" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="OpeningAmount" ColumnName="OpeningAmount" />
+                <ScalarProperty Name="ReceivedAmount" ColumnName="ReceivedAmount" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="OutstandingAmount" ColumnName="OutstandingAmount" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="AgentCode" ColumnName="AgentCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="AssignmentModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Qualification" ColumnName="Qualification" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetAgentDetails" FunctionName="AssignmentModel.Store.usp_GetAgentDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AssignmentModel.usp_GetAgentDetails_Result">
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="Order_Date" ColumnName="Order Date" />
+                <ScalarProperty Name="Agent_Name" ColumnName="Agent Name" />
+                <ScalarProperty Name="Contact_Number" ColumnName="Contact Number" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetCustomerDetails" FunctionName="AssignmentModel.Store.usp_GetCustomerDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AssignmentModel.usp_GetCustomerDetails_Result">
+                <ScalarProperty Name="Agent_Name" ColumnName="Agent Name" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="WorkingArea" ColumnName="WorkingArea" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Grade" ColumnName="Grade" />
+                <ScalarProperty Name="OpeningAmount" ColumnName="OpeningAmount" />
+                <ScalarProperty Name="ReceivedAmount" ColumnName="ReceivedAmount" />
+                <ScalarProperty Name="PaymentAmount" ColumnName="PaymentAmount" />
+                <ScalarProperty Name="OutstandingAmount" ColumnName="OutstandingAmount" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="AgentCode" ColumnName="AgentCode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetOrderCount" FunctionName="AssignmentModel.Store.usp_GetOrderCount">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AssignmentModel.usp_GetOrderCount_Result">
+                <ScalarProperty Name="Agent_Name" ColumnName="Agent Name" />
+                <ScalarProperty Name="Order_Count" ColumnName="Order Count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetOrderDetailsByAgentId" FunctionName="AssignmentModel.Store.usp_GetOrderDetailsByAgentId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AssignmentModel.usp_GetOrderDetailsByAgentId_Result">
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="AdvanceAmount" ColumnName="AdvanceAmount" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="AgentCode" ColumnName="AgentCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="AgentCode1" ColumnName="AgentCode1" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="WorkingArea" ColumnName="WorkingArea" />
+                <ScalarProperty Name="Commission" ColumnName="Commission" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Agent_Name" ColumnName="Agent Name" />
+                <ScalarProperty Name="Contact_Number" ColumnName="Contact Number" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetOrderDetailsOnANameCName" FunctionName="AssignmentModel.Store.usp_GetOrderDetailsOnANameCName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="AssignmentModel.usp_GetOrderDetailsOnANameCName_Result">
+                <ScalarProperty Name="OrderNumber" ColumnName="OrderNumber" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="AdvanceAmount" ColumnName="AdvanceAmount" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="CustomerCode" ColumnName="CustomerCode" />
+                <ScalarProperty Name="AgentCode" ColumnName="AgentCode" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Agent_Name" ColumnName="Agent Name" />
+                <ScalarProperty Name="Customer_Name" ColumnName="Customer Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
